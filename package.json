@@ -9,6 +9,7 @@
   "author": "akorol",
   "license": "ISC",
   "dependencies": {
+    "mongodb": "^3.5.5",
     "selenium-webdriver": "^4.0.0-alpha.7"
   }
 }
