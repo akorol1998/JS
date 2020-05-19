@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fill the form</title>
+	<meta charset="utf-8" />
+</head>
+<body>
+	<h1>Input your data</h1>
+	<form name="registerForm">
+		<label>Name</label></br>
+		<input type="text" name="userName" /></br></br>
+		<label>Age</label></br>
+		<input type="number" name="userAge" /></br></br>
+		<button type="submit" id="submit">Send</button>
+    </form>
+    <script>
+		document.getElementById("submit").addEventListener("click", function (e) {
+			e.preventDefault();
+			let registerForm = document.forms["registerForm"];
+			let userName = registerForm.elements["userName"].value;
+			let userAge = registerForm.elements["userAge"].value;
+			
+			let user = JSON.stringify({userName: userName, userAge: userAge});
+			let request = new XMLHttpRequest();
+			
+			request.open("POST", "/form", true);   
+			request.setRequestHeader("Content-Type", "application/json");
+			request.addEventListener("load", function () {
+				let response = JSON.parse(request.response);
+				
+				if (response.status == 200)
+					console.log(response.userName, "-", response.userAge, "Is Registration allowed: ", response.allowed);
+				else
+					console.log(`Something went wrong...\nReason: ${response.message}`);
+			});
+             request.send(user);
+         });
+    </script>
+</body>
+<html>
